@@ -1,3 +1,7 @@
+import Card from "../components/card";
+import DigitalClock from "../components/cards/clock";
+import CompletionChart from "../components/cards/completionChart";
+import Quote from "../components/cards/quote";
 import Navigation from "../components/navigation";
 import Sidebar from "../components/sidebar";
 
@@ -9,7 +13,16 @@ const Dashboard = () => {
       <Sidebar></Sidebar>
       <div className="w-full h-full flex bg-[rgba(5,4,9,0.7)] flex-col">
         <Navigation></Navigation>
-        <div className="w-full h-full flex flex-wrap items-center"></div>
+        <div className="w-full h-full flex gap-20 flex-wrap p-24">
+          <Card title={"Today"} content={<DigitalClock />}></Card>
+          <Card title={"Upcoming Task"} content={undefined}></Card>
+          <Card title={"Completion Ratio"} content={<CompletionChart />}></Card>
+          <Card title={"Motivational Quote"} content={<Quote />}></Card>
+          <Card title={""} content={undefined}></Card>
+          <Card title={""} content={undefined}></Card>
+          <Card title={""} content={undefined}></Card>
+          <Card title={""} content={undefined}></Card>
+        </div>
       </div>
     </div>
   );
