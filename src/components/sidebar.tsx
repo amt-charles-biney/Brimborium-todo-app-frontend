@@ -1,18 +1,11 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-  faCalendarCheck,
-  faCalendarPlus,
-  faChartPie,
-  faCubesStacked,
-  faListCheck,
-  faPowerOff,
-  faSliders,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-alt.png";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
+import { taskLinks, systemLinks } from "../data/links";
 
 export type NavProps = {
   link: string;
@@ -32,42 +25,6 @@ export const NavList = ({ link, icon, name }: NavProps) => {
 };
 
 const Sidebar = () => {
-  const systemLinks = [
-    {
-      link: "/reports",
-      icon: faChartPie,
-      name: "Reports",
-    },
-    {
-      link: "/settings",
-      icon: faSliders,
-      name: "Settings",
-    },
-  ];
-
-  const taskLinks = [
-    {
-      link: "/",
-      icon: faCubesStacked,
-      name: "Task overview",
-    },
-    {
-      link: "/tasks",
-      icon: faListCheck,
-      name: "View all tasks",
-    },
-    {
-      link: "/add",
-      icon: faCalendarPlus,
-      name: "Add new task",
-    },
-    {
-      link: "/completed",
-      icon: faCalendarCheck,
-      name: "Completed tasks",
-    },
-  ];
-
   const dispatch = useAppDispatch();
 
   function handleLogout() {
