@@ -15,7 +15,6 @@ export const login = createAsyncThunk(
   async (payload: LoginData, { rejectWithValue }) => {
     try {
       const response = await api.post("/auth/login", payload);
-      console.log(response.data);
 
       if (response.status > 400) {
         return rejectWithValue(response.status);
