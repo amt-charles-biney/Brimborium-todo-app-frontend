@@ -1,13 +1,22 @@
 import {
+  faCalendarCheck,
   faCircleCheck,
   faDiagramNext,
+  faForward,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import api from "../../config/axios";
 import { Task } from "../../models/task";
+import { useAppSelector } from "../../redux/hooks";
 
-const UpcomingTask: React.FC = () => {
+export type TaskProps = {
+  index: number;
+};
+
+const UpcomingTask = ({ index }: TaskProps) => {
+  const user = useAppSelector((state) => state.user);
   const [upcomingTask, setUpcomingTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -16,10 +25,10 @@ const UpcomingTask: React.FC = () => {
     async function fetchNextTask() {
       try {
         const response = await api.get(
-          "/todo?orderBy=dueDate:asc&where=userId:05ddd17c-ac94-4973-bb28-6430beb9dc32"
+          `/todo?orderBy=dueDate:asc&where=userId:${user?.id}`
         );
         if (response.data.length > 0) {
-          setUpcomingTask(response.data[0]);
+          setUpcomingTask(response.data[index]);
         } else {
           setUpcomingTask(null);
         }
@@ -31,7 +40,7 @@ const UpcomingTask: React.FC = () => {
     }
 
     fetchNextTask();
-  }, []);
+  }, [index, user]);
 
   return (
     <div className="h-full w-full flex flex-col justify-between items-center">
@@ -43,10 +52,14 @@ const UpcomingTask: React.FC = () => {
         ) : upcomingTask ? (
           <div>
             <h2 className="text-center font-bold text-lg pb-4">
-              <FontAwesomeIcon
-                className="text-yellow-400"
-                icon={faDiagramNext}
-              />{" "}
+              {index === 1 ? (
+                <FontAwesomeIcon className="text-orange-600" icon={faForward} />
+              ) : (
+                <FontAwesomeIcon
+                  className="text-yellow-400"
+                  icon={faDiagramNext}
+                />
+              )}{" "}
               &ensp;
               {upcomingTask.topic}
             </h2>
@@ -58,10 +71,19 @@ const UpcomingTask: React.FC = () => {
         <p className="text-center text-sm">{upcomingTask?.description}</p>
       </div>
 
-      <button className="px-4 py-1 border-2 border-green-400 rounded-full">
-        <FontAwesomeIcon className="text-green-400" icon={faCircleCheck} />{" "}
-        &ensp;Done
-      </button>
+      {index === 1 ? (
+        upcomingTask && (
+          <p className="font-mono">
+            <FontAwesomeIcon icon={faCalendarCheck} />
+            &ensp; {moment(upcomingTask?.dueDate).fromNow()}
+          </p>
+        )
+      ) : (
+        <button className="px-4 py-1 border-2 border-green-400 rounded-full">
+          <FontAwesomeIcon className="text-green-400" icon={faCircleCheck} />{" "}
+          &ensp;Done
+        </button>
+      )}
     </div>
   );
 };

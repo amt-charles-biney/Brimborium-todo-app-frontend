@@ -8,14 +8,22 @@ import { useAppDispatch } from "../redux/hooks";
 import { taskLinks, systemLinks } from "../data/links";
 
 export type NavProps = {
-  link: string;
+  link?: string;
   icon: IconProp;
   name: string;
+  openModal?: (arg0: boolean) => void;
 };
 
-export const NavList = ({ link, icon, name }: NavProps) => {
-  return (
-    <Link to={link}>
+export const NavList = ({ link, icon, name, openModal }: NavProps) => {
+  return openModal ? (
+    <span onClick={() => openModal(true)} className="cursor-pointer">
+      <div className="flex gap-4 items-center">
+        <FontAwesomeIcon icon={icon} />
+        <span className="text-[#aab] font-bold text-sm">{name}</span>
+      </div>
+    </span>
+  ) : (
+    <Link to={link!}>
       <div className="flex gap-4 items-center">
         <FontAwesomeIcon icon={icon} />
         <span className="text-[#aab] font-bold text-sm">{name}</span>
@@ -24,7 +32,11 @@ export const NavList = ({ link, icon, name }: NavProps) => {
   );
 };
 
-const Sidebar = () => {
+export type SidebarProps = {
+  openModal: (arg0: boolean) => void;
+};
+
+const Sidebar = ({ openModal }: SidebarProps) => {
   const dispatch = useAppDispatch();
 
   function handleLogout() {
@@ -41,9 +53,16 @@ const Sidebar = () => {
 
         <ul className="flex flex-col gap-5 w-full border-2 border-gray-500 bg-[rgba(143,143,143,0.05)] rounded-xl px-8 py-6">
           {taskLinks.map((data) => {
-            return (
+            return data.modal ? (
               <NavList
-                key={data.link}
+                key={data.name}
+                icon={data.icon}
+                name={data.name}
+                openModal={openModal}
+              />
+            ) : (
+              <NavList
+                key={data.name}
                 link={data.link}
                 icon={data.icon}
                 name={data.name}
@@ -62,6 +81,7 @@ const Sidebar = () => {
                   link={data.link}
                   icon={data.icon}
                   name={data.name}
+                  openModal={openModal}
                 />
               );
             })}

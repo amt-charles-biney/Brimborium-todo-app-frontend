@@ -3,8 +3,8 @@ import { PieChart } from "react-minimal-pie-chart";
 const CompletionChart = () => {
   const data = [
     { title: "Tasks completed", value: 10, color: "#50C878" },
-    { title: "Task yet to be done", value: 5, color: "#DAF7A6" },
-    { title: "Current tasks", value: 3, color: "#FF5733" },
+    { title: "Current tasks", value: 5, color: "#DAF7A6" },
+    { title: "Task yet to be done", value: 3, color: "#FF5733" },
     { title: "Task missed", value: 3, color: "#C70039" },
   ];
 
