@@ -25,9 +25,9 @@ export const taskLinks = [
     name: "View all tasks",
   },
   {
-    link: "/add",
     icon: faCalendarPlus,
     name: "Add new task",
+    modal: true
   },
   {
     link: "/completed",
