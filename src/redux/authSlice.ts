@@ -30,6 +30,7 @@ export const login = createAsyncThunk(
           (axiosError.response?.data as { message: string }).message
         );
       } else {
+        toastIt('An error occurred. Please try again later', '🙆🏽‍♀️');
         return rejectWithValue("An error occurred. Please try again later.");
       }
     }
