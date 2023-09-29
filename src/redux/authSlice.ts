@@ -24,13 +24,13 @@ export const login = createAsyncThunk(
       if (error instanceof AxiosError && error.response) {
         const axiosError = error as AxiosError;
 
-        toastIt('Wrong credentials', '😢');
+        toastIt("Wrong credentials", "😢");
 
         return rejectWithValue(
           (axiosError.response?.data as { message: string }).message
         );
       } else {
-        toastIt('An error occurred. Please try again later', '🙆🏽‍♀️');
+        toastIt("An error occurred. Please try again later", "🙆🏽‍♀️");
         return rejectWithValue("An error occurred. Please try again later.");
       }
     }
@@ -44,7 +44,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
-      console.log("logged out");
     },
   },
   extraReducers: (builder) => {
@@ -53,6 +52,8 @@ const authSlice = createSlice({
       (state, action: PayloadAction<LoginResponse>) => {
         state.user = action.payload;
         state.isAuthenticated = true;
+
+        toastIt("Login successful!", "😊");
       }
     );
     builder.addCase(login.rejected, (state) => {
