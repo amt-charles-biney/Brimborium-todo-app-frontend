@@ -24,7 +24,7 @@ const Dashboard = () => {
       <Sidebar openModal={openModal}></Sidebar>
       <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
         <Navigation></Navigation>
-        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-scroll 2xl:overflow-hidden">
+        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll 2xl:overflow-hidden">
           <Card title={"Today"} content={<DigitalClock />}></Card>
           <Card title={"Pomodoro"} content={undefined}></Card>
           <Card title={""} content={undefined}></Card>
