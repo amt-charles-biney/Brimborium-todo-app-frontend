@@ -8,6 +8,7 @@ import Modal from "../components/modal";
 import Navigation from "../components/navigation";
 import Sidebar from "../components/sidebar";
 import { Toaster } from "react-hot-toast";
+import Spotify from "../components/cards/spotify";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,7 +42,7 @@ const Dashboard = () => {
             content={<UpcomingTask index={1} />}
           ></Card>
           <Card title={""} content={undefined}></Card>
-          <Card title={""} content={undefined}></Card>
+          <Card title={"Spotify"} content={<Spotify />} bg="#b2598582"></Card>
         </div>
       </div>
       <Toaster position="bottom-right" reverseOrder={true} />
