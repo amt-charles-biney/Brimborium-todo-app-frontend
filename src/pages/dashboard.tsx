@@ -9,6 +9,7 @@ import Navigation from "../components/navigation";
 import Sidebar from "../components/sidebar";
 import { Toaster } from "react-hot-toast";
 import Spotify from "../components/cards/spotify";
+import Qat from "../components/qat";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,7 @@ const Dashboard = () => {
       <Sidebar openModal={openModal}></Sidebar>
       <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
         <Navigation></Navigation>
-        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll 2xl:overflow-hidden">
+        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll">
           <Card title={"Today"} content={<DigitalClock />}></Card>
           <Card
             title={"Current task"}
@@ -42,10 +43,15 @@ const Dashboard = () => {
             content={<UpcomingTask index={1} />}
           ></Card>
           <Card title={""} content={undefined}></Card>
-          <Card title={"Spotify Music"} content={<Spotify />} bg="#b2598582"></Card>
+          <Card
+            title={"Spotify Music"}
+            content={<Spotify />}
+            bg="#b2598582"
+          ></Card>
         </div>
       </div>
       <Toaster position="bottom-right" reverseOrder={true} />
+      <Qat></Qat>
     </div>
   );
 };
