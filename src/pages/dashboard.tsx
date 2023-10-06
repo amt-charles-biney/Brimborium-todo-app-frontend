@@ -37,12 +37,12 @@ const Dashboard = () => {
           ></Card>
           <Card title={"Completion Ratio"} content={<CompletionChart />}></Card>
           <Card title={"Motivational Quote"} content={<Quote />}></Card>
-          <Card title={"Pomodoro Timer"} content={undefined}></Card>
+          <Card title={"Weather"} content={undefined}></Card>
           <Card
             title={"Upcoming Task"}
             content={<UpcomingTask index={1} />}
           ></Card>
-          <Card title={""} content={undefined}></Card>
+          <Card title={"Pomodoro Timer"} content={undefined}></Card>
           <Card
             title={"Spotify Music"}
             content={<Spotify />}
