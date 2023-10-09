@@ -5,8 +5,11 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 
 const Qat = () => {
+  const [isQatOpen, setIsQatOpen] = useState(false);
+
   const toggleQat = () => {
     const element = document.getElementById("qat_btn");
 
@@ -16,29 +19,33 @@ const Qat = () => {
     } else {
       element!.style.transform = "rotate(0)";
     }
+
+    setIsQatOpen(!isQatOpen);
   };
 
   return (
     <div className="fixed bottom-10 right-10 flex flex-col gap-2 items-end">
-      <div className="flex flex-col gap-2">
-        <div className="w-[40px] h-[40px] rounded-full bg-orange-500 cursor-pointer flex justify-center items-center transition-[0.2s]">
-          <FontAwesomeIcon className="text-lg" icon={faInbox} />
-        </div>
+      {isQatOpen && (
+        <div className="flex flex-col gap-2">
+          <div className="w-[40px] h-[40px] rounded-full bg-orange-500 cursor-pointer flex justify-center items-center transition-[0.2s]">
+            <FontAwesomeIcon className="text-lg" icon={faInbox} />
+          </div>
 
-        <div
-          title="Calculator"
-          className="w-[40px] h-[40px] rounded-full bg-red-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
-        >
-          <FontAwesomeIcon className="text-lg" icon={faCalculator} />
-        </div>
+          <div
+            title="Calculator"
+            className="w-[40px] h-[40px] rounded-full bg-red-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
+          >
+            <FontAwesomeIcon className="text-lg" icon={faCalculator} />
+          </div>
 
-        <div
-          title="New task"
-          className="w-[40px] h-[40px] rounded-full bg-blue-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
-        >
-          <FontAwesomeIcon className="text-lg" icon={faCalendarPlus} />
+          <div
+            title="New task"
+            className="w-[40px] h-[40px] rounded-full bg-blue-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
+          >
+            <FontAwesomeIcon className="text-lg" icon={faCalendarPlus} />
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         id="qat_btn"
