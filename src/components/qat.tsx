@@ -1,11 +1,11 @@
 import {
-  faCalculator,
-  faCalendarPlus,
-  faInbox,
-  faPlus,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { qatButtons } from "../data/qat-buttons";
+import type { QatButton as QatButtonType } from "../models/ui";
+import { QatButton } from "./qat-button";
 
 const Qat = () => {
   const [isQatOpen, setIsQatOpen] = useState(false);
@@ -27,23 +27,11 @@ const Qat = () => {
     <div className="fixed bottom-10 right-10 flex flex-col gap-2 items-end">
       {isQatOpen && (
         <div className="flex flex-col gap-2">
-          <div className="w-[40px] h-[40px] rounded-full bg-orange-500 cursor-pointer flex justify-center items-center transition-[0.2s]">
-            <FontAwesomeIcon className="text-lg" icon={faInbox} />
-          </div>
-
-          <div
-            title="Calculator"
-            className="w-[40px] h-[40px] rounded-full bg-red-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
-          >
-            <FontAwesomeIcon className="text-lg" icon={faCalculator} />
-          </div>
-
-          <div
-            title="New task"
-            className="w-[40px] h-[40px] rounded-full bg-blue-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
-          >
-            <FontAwesomeIcon className="text-lg" icon={faCalendarPlus} />
-          </div>
+          {qatButtons.map((qat: QatButtonType) => {
+            return (
+              <QatButton color={qat.color} icon={qat.icon} title={qat.title} />
+            );
+          })}
         </div>
       )}
 
@@ -54,14 +42,6 @@ const Qat = () => {
       >
         <FontAwesomeIcon className="text-lg" icon={faPlus} />
       </div>
-    </div>
-  );
-};
-
-export const QatButton = () => {
-  return (
-    <div className="w-[40px] h-[40px] rounded-full bg-blue-500 cursor-pointer flex justify-center items-center transition-[0.2s]">
-      <FontAwesomeIcon className="text-lg" icon={faPlus} />
     </div>
   );
 };
