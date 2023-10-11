@@ -7,9 +7,18 @@ import { NavProps, SidebarProps } from "../models/ui";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 
-export const NavList = ({ link, icon, name, openModal }: NavProps) => {
+export const NavList = ({
+  link,
+  icon,
+  name,
+  openModal,
+  component,
+}: NavProps) => {
   return openModal ? (
-    <span onClick={() => openModal(true)} className="cursor-pointer">
+    <span
+      onClick={() => openModal(true, component!)}
+      className="cursor-pointer"
+    >
       <div className="flex gap-4 items-center">
         <FontAwesomeIcon icon={icon} />
         <span className="text-[#aab] font-bold text-sm">{name}</span>
@@ -48,6 +57,7 @@ const Sidebar = ({ openModal }: SidebarProps) => {
                 icon={data.icon}
                 name={data.name}
                 openModal={openModal}
+                component={data.component}
               />
             ) : (
               <NavList

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import AddTask from "../components/addTask";
 import Card from "../components/card";
 import DigitalClock from "../components/cards/clock";
 import CompletionChart from "../components/cards/completionChart";
@@ -11,26 +10,41 @@ import Modal from "../components/modal";
 import Navigation from "../components/navigation";
 import Qat from "../components/qat";
 import Sidebar from "../components/sidebar";
+import { ModalComponentProps, ModalState } from "../models/ui";
 
 const Dashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const InitialModalInstance: ModalState = {
+    isModalOpen: false,
+  };
+
+  const [modalInstance, setModalInstance] = useState(InitialModalInstance);
   document.title = "Dashboard | Brimborium";
 
   function closeModal(state: boolean): void {
-    setIsModalOpen(state);
+    setModalInstance((prevState) => {
+      return {
+        ...prevState,
+        isModalOpen: state,
+      };
+    });
   }
 
-  function openModal(state: boolean): void {
-    setIsModalOpen(state);
+  function openModal(
+    state: boolean,
+    component: ({ closeModal }: ModalComponentProps) => JSX.Element
+  ): void {
+    setModalInstance(() => {
+      return {
+        component,
+        isModalOpen: state,
+      };
+    });
   }
 
   return (
     <div className="h-[100vh] w-[100vw] overflow-hidden flex dark-gradient text-white">
-      {isModalOpen && (
-        <Modal
-          closeModal={closeModal}
-          component={<AddTask closeModal={closeModal} />}
-        />
+      {modalInstance.isModalOpen && (
+        <Modal closeModal={closeModal} component={modalInstance.component!} />
       )}
       <Sidebar openModal={openModal}></Sidebar>
       <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
