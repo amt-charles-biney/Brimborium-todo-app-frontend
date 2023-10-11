@@ -28,3 +28,7 @@ export type ModalProps = {
   closeModal: (arg0: boolean) => void;
   component: ReactNode;
 };
+
+export type ModalComponentProps = {
+  closeModal: (arg0: boolean) => void;
+};

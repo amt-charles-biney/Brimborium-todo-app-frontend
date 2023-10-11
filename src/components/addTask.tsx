@@ -9,6 +9,7 @@ import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import moment from "moment";
 import { useState } from "react";
 import api from "../config/axios";
+import { ModalComponentProps } from "../models/ui";
 import toastIt from "../utilities/toast";
 
 const darkTheme = createTheme({
@@ -17,7 +18,7 @@ const darkTheme = createTheme({
   },
 });
 
-const AddTask = ({ closeModal }) => {
+const AddTask = ({ closeModal }: ModalComponentProps) => {
   const [taskData, setTaskData] = useState({
     topic: "",
     description: "",
