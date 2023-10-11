@@ -1,6 +1,4 @@
-import {
-  faPlus
-} from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { qatButtons } from "../data/qat-buttons";
@@ -29,7 +27,12 @@ const Qat = () => {
         <div className="flex flex-col gap-2">
           {qatButtons.map((qat: QatButtonType) => {
             return (
-              <QatButton color={qat.color} icon={qat.icon} title={qat.title} />
+              <QatButton
+                key={qat.title}
+                color={qat.color}
+                icon={qat.icon}
+                title={qat.title}
+              />
             );
           })}
         </div>
@@ -38,7 +41,7 @@ const Qat = () => {
       <div
         id="qat_btn"
         onClick={toggleQat}
-        className="w-[40px] h-[40px] rounded-full bg-green-500 cursor-pointer flex justify-center items-center transition-[0.2s]"
+        className="w-[40px] h-[40px] rounded-full bg-green-500 cursor-pointer flex justify-center items-center transition"
       >
         <FontAwesomeIcon className="text-lg" icon={faPlus} />
       </div>
