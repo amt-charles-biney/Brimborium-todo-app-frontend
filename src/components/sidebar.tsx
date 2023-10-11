@@ -1,18 +1,11 @@
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-alt.png";
+import { systemLinks, taskLinks } from "../data/links";
+import { NavProps, SidebarProps } from "../models/ui";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
-import { taskLinks, systemLinks } from "../data/links";
-
-export type NavProps = {
-  link?: string;
-  icon: IconProp;
-  name: string;
-  openModal?: (arg0: boolean) => void;
-};
 
 export const NavList = ({ link, icon, name, openModal }: NavProps) => {
   return openModal ? (
@@ -30,10 +23,6 @@ export const NavList = ({ link, icon, name, openModal }: NavProps) => {
       </div>
     </Link>
   );
-};
-
-export type SidebarProps = {
-  openModal: (arg0: boolean) => void;
 };
 
 const Sidebar = ({ openModal }: SidebarProps) => {
@@ -75,13 +64,19 @@ const Sidebar = ({ openModal }: SidebarProps) => {
           <h2 className="font-bold pb-4">System Controls</h2>
           <ul className="flex flex-col gap-5 w-full ">
             {systemLinks.map((data) => {
-              return (
+              return data.modal ? (
                 <NavList
-                  key={data.link}
-                  link={data.link}
+                  key={data.name}
                   icon={data.icon}
                   name={data.name}
                   openModal={openModal}
+                />
+              ) : (
+                <NavList
+                  key={data.name}
+                  link={data.link}
+                  icon={data.icon}
+                  name={data.name}
                 />
               );
             })}
