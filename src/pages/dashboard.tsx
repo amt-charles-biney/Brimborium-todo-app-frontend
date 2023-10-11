@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   function openModal(
     state: boolean,
-    component: ({ closeModal }: ModalComponentProps) => JSX.Element
+    component: (props: ModalComponentProps) => JSX.Element
   ): void {
     setModalInstance(() => {
       return {
