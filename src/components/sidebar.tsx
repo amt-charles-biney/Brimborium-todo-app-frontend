@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-alt.png";
 import { systemLinks, taskLinks } from "../data/links";
-import { NavProps, SidebarProps } from "../models/ui";
+import { NavProps, openModal } from "../models/ui";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 
@@ -34,7 +34,7 @@ export const NavList = ({
   );
 };
 
-const Sidebar = ({ openModal }: SidebarProps) => {
+const Sidebar = ({ openModal }: openModal) => {
   const dispatch = useAppDispatch();
 
   function handleLogout() {

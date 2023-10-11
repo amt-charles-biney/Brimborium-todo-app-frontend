@@ -2,10 +2,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { qatButtons } from "../data/qat-buttons";
-import type { QatButton as QatButtonType } from "../models/ui";
+import type { QatButtonProps, openModal } from "../models/ui";
 import { QatButton } from "./qat-button";
 
-const Qat = () => {
+const Qat = ({ openModal }: openModal) => {
   const [isQatOpen, setIsQatOpen] = useState(false);
 
   const toggleQat = () => {
@@ -25,13 +25,15 @@ const Qat = () => {
     <div className="fixed bottom-10 right-10 flex flex-col gap-2 items-end">
       {isQatOpen && (
         <div className="flex flex-col gap-2">
-          {qatButtons.map((qat: QatButtonType) => {
+          {qatButtons.map((qat: QatButtonProps) => {
             return (
               <QatButton
                 key={qat.title}
                 color={qat.color}
                 icon={qat.icon}
                 title={qat.title}
+                openModal={qat.component && openModal}
+                component={qat.component}
               />
             );
           })}

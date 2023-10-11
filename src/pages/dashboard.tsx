@@ -71,7 +71,7 @@ const Dashboard = () => {
         </div>
       </div>
       <Toaster position="bottom-right" reverseOrder={true} />
-      <Qat></Qat>
+      <Qat openModal={openModal}></Qat>
     </div>
   );
 };
