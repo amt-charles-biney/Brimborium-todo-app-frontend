@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import AddTask from "../components/addTask";
 import Card from "../components/card";
 import DigitalClock from "../components/cards/clock";
 import CompletionChart from "../components/cards/completionChart";
 import Quote from "../components/cards/quote";
+import Spotify from "../components/cards/spotify";
 import UpcomingTask from "../components/cards/upcomingTask";
 import Modal from "../components/modal";
 import Navigation from "../components/navigation";
-import Sidebar from "../components/sidebar";
-import { Toaster } from "react-hot-toast";
-import Spotify from "../components/cards/spotify";
 import Qat from "../components/qat";
+import Sidebar from "../components/sidebar";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +26,12 @@ const Dashboard = () => {
 
   return (
     <div className="h-[100vh] w-[100vw] overflow-hidden flex dark-gradient text-white">
-      {isModalOpen && <Modal closeModal={closeModal} />}
+      {isModalOpen && (
+        <Modal
+          closeModal={closeModal}
+          component={<AddTask closeModal={closeModal} />}
+        />
+      )}
       <Sidebar openModal={openModal}></Sidebar>
       <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
         <Navigation></Navigation>

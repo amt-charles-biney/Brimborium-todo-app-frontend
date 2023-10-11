@@ -1,4 +1,5 @@
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { ReactNode } from "react";
 
 export type QatButton = {
   title: string;
@@ -21,4 +22,9 @@ export type NavProps = {
   icon: IconDefinition;
   name: string;
   openModal?: (arg0: boolean) => void;
+};
+
+export type ModalProps = {
+  closeModal: (arg0: boolean) => void;
+  component: ReactNode;
 };
