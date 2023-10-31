@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import Modal from "../components/modal";
 import Navigation from "../components/navigation";
 import Qat from "../components/qat";
 import Sidebar from "../components/sidebar";
 import { ModalComponentProps, ModalState } from "../models/ui";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { fetchUserTasks } from "../redux/taskSlice";
+import { LoginResponse } from "../models/authentication";
 
 const Dashboard = () => {
+  const { id } = useAppSelector((state) => state.auth.user as LoginResponse);
+  const dispatch = useAppDispatch();
   const InitialModalInstance: ModalState = {
     isModalOpen: false,
   };
@@ -34,6 +39,10 @@ const Dashboard = () => {
       };
     });
   }
+
+  useEffect(() => {
+    dispatch(fetchUserTasks(id && id));
+  }, [dispatch, id]);
 
   return (
     <div className="h-[100vh] w-[100vw] overflow-hidden flex dark-gradient text-white">

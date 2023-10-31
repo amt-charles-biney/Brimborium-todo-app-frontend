@@ -8,6 +8,7 @@ import { NavProps, openModal } from "../models/ui";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 import toastIt from "../utilities/toast";
+import { resetTask } from "../redux/taskSlice";
 
 export const NavList = ({
   link,
@@ -42,6 +43,7 @@ const Sidebar = ({ openModal }: openModal) => {
   async function handleLogout() {
     try {
       await api.post("/auth/logout/");
+      dispatch(resetTask());
       dispatch(logout());
     } catch (error) {
       toastIt(

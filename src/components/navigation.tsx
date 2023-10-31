@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "../redux/hooks";
 
 const Navigation = () => {
-  const user = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
 
   return (
     <nav className="w-full h-[100px] flex items-center justify-between px-12">

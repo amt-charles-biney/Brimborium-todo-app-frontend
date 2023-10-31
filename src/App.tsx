@@ -6,15 +6,15 @@ import Overview from "./components/overview";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const authenticated = useAppSelector((state) => state.isAuthenticated);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const root = createBrowserRouter([
     {
       path: "/",
-      element: authenticated ? <Dashboard /> : <Login />,
+      element: isAuthenticated ? <Dashboard /> : <Login />,
     },
     {
       path: "/",
-      element: authenticated ? <Dashboard /> : <Login />,
+      element: isAuthenticated ? <Dashboard /> : <Login />,
       children: [
         {
           index: true,
