@@ -37,11 +37,21 @@ export const login = createAsyncThunk(
   }
 );
 
+const onLogout = async () => {
+  try {
+    await api.post("/auth/logout/");
+    toastIt("See you soon.", "😊");
+  } catch (error) {
+    toastIt("An error occurred but don't worry, you are still logged out.", "🙆🏽‍♀️");
+  }
+};
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
+      onLogout();
       state.isAuthenticated = false;
       state.user = null;
     },
