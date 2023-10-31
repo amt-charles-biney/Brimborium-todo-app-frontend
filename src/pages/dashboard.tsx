@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { Outlet } from "react-router";
 import Modal from "../components/modal";
 import Navigation from "../components/navigation";
 import Qat from "../components/qat";
 import Sidebar from "../components/sidebar";
 import { ModalComponentProps, ModalState } from "../models/ui";
-import { Outlet } from "react-router";
 
 const Dashboard = () => {
   const InitialModalInstance: ModalState = {
@@ -48,7 +47,6 @@ const Dashboard = () => {
           <Outlet></Outlet>
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={true} />
       <Qat openModal={openModal}></Qat>
     </div>
   );

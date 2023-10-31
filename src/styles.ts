@@ -6,6 +6,7 @@ export const toastStyle = {
   backgroundColor: "rgba(17, 20, 24, 0.785)",
   border: "0.0625rem solid rgba(255, 255, 255, 0.125)",
   boxShadow: "0 0.25rem 1.875rem rgba(12, 13, 26, 0.198)",
+  zIndex: 999
 };
 
 export const colorVariants = {

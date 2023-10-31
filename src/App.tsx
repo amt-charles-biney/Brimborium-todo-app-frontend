@@ -3,6 +3,7 @@ import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import { useAppSelector } from "./redux/hooks";
 import Overview from "./components/overview";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const authenticated = useAppSelector((state) => state.isAuthenticated);
@@ -22,7 +23,12 @@ function App() {
       ],
     },
   ]);
-  return <RouterProvider router={root} />;
+  return (
+    <>
+      <RouterProvider router={root} />
+      <Toaster position="bottom-right" reverseOrder={true} />
+    </>
+  );
 }
 
 export default App;
