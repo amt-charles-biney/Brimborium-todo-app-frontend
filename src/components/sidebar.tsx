@@ -42,9 +42,12 @@ const Sidebar = ({ openModal }: openModal) => {
 
   async function handleLogout() {
     try {
-      await api.post("/auth/logout/");
       dispatch(resetTask());
       dispatch(logout());
+
+      await api.post("/auth/logout/");
+      
+      toastIt("See you soon.", "😊");
     } catch (error) {
       toastIt(
         "An error occurred but don't worry, you are still logged out.",

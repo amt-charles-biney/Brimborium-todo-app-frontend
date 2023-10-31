@@ -44,8 +44,6 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
-
-      toastIt("See you soon.", "😊");
     },
   },
   extraReducers: (builder) => {
