@@ -50,9 +50,9 @@ const Dashboard = () => {
         <Modal closeModal={closeModal} component={modalInstance.component!} />
       )}
       <Sidebar openModal={openModal}></Sidebar>
-      <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
+      <div className="w-full h-full grid grid-rows-[100px_1fr] bg-[rgba(5,4,9,0.7)]">
         <Navigation></Navigation>
-        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll">
+        <div className="w-full h-full flex gap-20 flex-wrap px-12 py-24 overflow-y-scroll">
           <Outlet></Outlet>
         </div>
       </div>
