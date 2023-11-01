@@ -8,9 +8,10 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import moment from "moment";
 import { useState } from "react";
-import api from "../config/axios";
+import { TaskData } from "../models/task";
 import { ModalComponentProps } from "../models/ui";
-import toastIt from "../utilities/toast";
+import { useAppDispatch } from "../redux/hooks";
+import { addTask } from "../redux/taskSlice";
 
 const darkTheme = createTheme({
   palette: {
@@ -19,11 +20,13 @@ const darkTheme = createTheme({
 });
 
 const AddTask = ({ closeModal }: ModalComponentProps) => {
-  const [taskData, setTaskData] = useState({
+  const dispatch = useAppDispatch();
+  const taskDataObject: TaskData = {
     topic: "",
     description: "",
     dueDate: moment().add(1, "hours"),
-  });
+  };
+  const [taskData, setTaskData] = useState(taskDataObject);
   const inputStyle: string = "bg-white glass rounded-md p-2";
 
   function handleChange(e: { target: HTMLInputElement | HTMLTextAreaElement }) {
@@ -37,19 +40,8 @@ const AddTask = ({ closeModal }: ModalComponentProps) => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const newTaskData = {
-      ...taskData,
-      dueDate: taskData.dueDate.toISOString(),
-    };
-    await api
-      .post("/todo", newTaskData)
-      .then((response) => {
-        if (response.status < 400) toastIt("Task added successfully.", "✔");
-      })
-      .catch((err) => {
-        toastIt(err.message, "❌");
-      });
 
+    await dispatch(addTask(taskData));
     closeModal(false);
   }
 
