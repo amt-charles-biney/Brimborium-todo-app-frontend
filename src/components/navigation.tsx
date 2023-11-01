@@ -1,14 +1,18 @@
 import { faSearchPlus, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "../redux/hooks";
+import { useLocation } from "react-router-dom";
+import pageTitles from "../data/pageTitles";
 
 const Navigation = () => {
-  const user = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const location = useLocation();
+  const path = location.pathname;
 
   return (
     <nav className="w-full h-[100px] flex items-center justify-between px-12">
       <div className="flex items-center">
-        <h2 className="font-bold text-white text-3xl">Dashboard</h2>
+        <h2 className="font-bold text-white text-3xl">{pageTitles[path]}</h2>
       </div>
       <div className="flex items-center justify-between rounded-3xl border-2 border-gray-400 max-h-11 min-w-[25%] px-2">
         <input
