@@ -1,7 +1,7 @@
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo-alt.png";
+import logo from "../assets/logo.png";
 import api from "../config/axios";
 import { systemLinks, taskLinks } from "../data/links";
 import { NavProps, openModal } from "../models/ui";
