@@ -2,8 +2,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import { useAppSelector } from "./redux/hooks";
-import Overview from "./components/overview";
+import Overview from "./components/outlets/overview";
 import { Toaster } from "react-hot-toast";
+import AllTasks from "./components/outlets/allTasks";
 
 function App() {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
@@ -19,6 +20,10 @@ function App() {
         {
           index: true,
           element: <Overview />,
+        },
+        {
+          path: "tasks",
+          element: <AllTasks />,
         },
       ],
     },
