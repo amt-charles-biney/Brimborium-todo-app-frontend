@@ -1,10 +1,9 @@
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import logo from "../assets/logo.png";
 import { login } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
-import logo from "../assets/logo-alt.png";
 import toastIt from "../utilities/toast";
 
 const Login = () => {
@@ -87,7 +86,6 @@ const Login = () => {
           </span>
         </p>
       </div>
-      <Toaster position="bottom-right" reverseOrder={true} />
     </div>
   );
 };

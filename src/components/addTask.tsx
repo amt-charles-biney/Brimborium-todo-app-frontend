@@ -12,7 +12,6 @@ import { TaskData } from "../models/task";
 import { ModalComponentProps } from "../models/ui";
 import { useAppDispatch } from "../redux/hooks";
 import { addTask } from "../redux/taskSlice";
-import pageImage from "../assets/add-task.svg";
 
 const darkTheme = createTheme({
   palette: {
@@ -48,21 +47,9 @@ const AddTask = ({ closeModal }: ModalComponentProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-[400px]">
-      <div className="m-auto">
-        <img
-          src={pageImage}
-          alt="Add task svg from undraw"
-          width="60%"
-          className="m-auto"
-        />
-        <h1 className="text-2xl text-white font-bold text-center mt-4">
-          Add a new task
-        </h1>
-        <p className="text-center">
-          Effortlessly collaborate with your team by adding a new task to the
-          shared project
-        </p>
-      </div>
+      <h1 className="leading-6 text-4xl text-white font-bold text-center mb-8">
+        Add a new task
+      </h1>
       <label className="flex flex-col">
         Topic
         <input

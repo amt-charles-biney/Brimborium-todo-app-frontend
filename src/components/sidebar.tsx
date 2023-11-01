@@ -1,15 +1,27 @@
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo-alt.png";
+import logo from "../assets/logo.png";
+import api from "../config/axios";
 import { systemLinks, taskLinks } from "../data/links";
-import { NavProps, SidebarProps } from "../models/ui";
+import { NavProps, openModal } from "../models/ui";
 import { logout } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
+import toastIt from "../utilities/toast";
+import { resetTask } from "../redux/taskSlice";
 
-export const NavList = ({ link, icon, name, openModal }: NavProps) => {
+export const NavList = ({
+  link,
+  icon,
+  name,
+  openModal,
+  component,
+}: NavProps) => {
   return openModal ? (
-    <span onClick={() => openModal(true)} className="cursor-pointer">
+    <span
+      onClick={() => openModal(true, component!)}
+      className="cursor-pointer"
+    >
       <div className="flex gap-4 items-center">
         <FontAwesomeIcon icon={icon} />
         <span className="text-[#aab] font-bold text-sm">{name}</span>
@@ -25,11 +37,23 @@ export const NavList = ({ link, icon, name, openModal }: NavProps) => {
   );
 };
 
-const Sidebar = ({ openModal }: SidebarProps) => {
+const Sidebar = ({ openModal }: openModal) => {
   const dispatch = useAppDispatch();
 
-  function handleLogout() {
-    dispatch(logout());
+  async function handleLogout() {
+    try {
+      dispatch(resetTask());
+      dispatch(logout());
+
+      await api.post("/auth/logout/");
+      
+      toastIt("See you soon.", "😊");
+    } catch (error) {
+      toastIt(
+        "An error occurred but don't worry, you are still logged out.",
+        "🙆🏽‍♀️"
+      );
+    }
   }
 
   return (
@@ -48,6 +72,7 @@ const Sidebar = ({ openModal }: SidebarProps) => {
                 icon={data.icon}
                 name={data.name}
                 openModal={openModal}
+                component={data.component}
               />
             ) : (
               <NavList

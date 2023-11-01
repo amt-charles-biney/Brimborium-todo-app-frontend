@@ -1,20 +1,26 @@
-import { faCalculator, faCalendarPlus, faInbox } from "@fortawesome/free-solid-svg-icons";
-import type { QatButton } from "../models/ui";
+import {
+  faCalculator,
+  faCalendarPlus,
+  faInbox,
+} from "@fortawesome/free-solid-svg-icons";
+import type { QatButtonProps } from "../models/ui";
+import AddTask from "../components/addTask";
 
-export const qatButtons: QatButton[] = [
+export const qatButtons: QatButtonProps[] = [
   {
     title: "Inbox",
-    color: "orange-500",
+    color: "orange",
     icon: faInbox,
   },
   {
     title: "Calculator",
-    color: "red-500",
+    color: "red",
     icon: faCalculator,
   },
   {
     title: "New task",
-    color: "blue-500",
+    color: "blue",
     icon: faCalendarPlus,
+    component: AddTask,
   },
 ];
