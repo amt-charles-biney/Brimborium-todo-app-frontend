@@ -1,7 +1,7 @@
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import logo from "../assets/logo-alt.png";
+import logo from "../assets/logo.png";
 import { login } from "../redux/authSlice";
 import { useAppDispatch } from "../redux/hooks";
 import toastIt from "../utilities/toast";
