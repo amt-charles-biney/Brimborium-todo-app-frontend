@@ -12,7 +12,7 @@ const TaskItem = ({ task }: TaskItemProps) => {
     <li className="flex gap-10 w-full transition-all text-center items-center hover:bg-sky-700 px-5 py-3 rounded cursor-pointer">
       <div className="w-[35%] flex gap-3">
         <input type="checkbox" />
-        <h3 className="font-bold capitalize text-left">{task.topic}</h3>
+        <h3 className="capitalize text-left">{task.topic}</h3>
       </div>
       <p className="w-[15%] text-sm">{moment(task.dueDate).fromNow()}</p>
       <div className="status w-[10%]">
