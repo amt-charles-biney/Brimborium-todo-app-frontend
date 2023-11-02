@@ -13,6 +13,7 @@ import { ModalComponentProps } from "../models/ui";
 import { useAppDispatch } from "../redux/hooks";
 import { addTask } from "../redux/taskSlice";
 import pageImage from "../assets/add-task.svg";
+import toastIt from "../utilities/toast";
 
 const darkTheme = createTheme({
   palette: {
@@ -44,6 +45,7 @@ const AddTask = ({ closeModal }: ModalComponentProps) => {
 
     await dispatch(addTask(taskData));
     closeModal(false);
+    toastIt("Task added successfully.", "✔");
   }
 
   return (

@@ -58,11 +58,11 @@ const taskSlice = createSlice({
       state.tasks.push(action.payload as Task);
       state.count = state.tasks.length;
       state.loading = false;
-      toastIt("Task added successfully.", "✔");
+      return;
     });
     builder.addCase(addTask.pending, (state) => {
       state.loading = true;
-      toastIt("Adding task", "⏳");
+      // toastIt("Adding task", "⏳");
     });
     builder.addCase(addTask.rejected, (state, action) => {
       state.loading = false;
