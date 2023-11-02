@@ -9,7 +9,7 @@ const AllTasks = () => {
   return (
     <div className="w-full h-full flex">
       <div className="w-full min-w-[50.75rem] h-full">
-        <ul className="flex gap-10 px-5 font-bold text-xl pb-3 text-center">
+        <ul className="flex gap-10 px-5 font-bold text-lg pb-3 text-center">
           <li className="w-[35%] text-left cursor-pointer">
             Topic <FontAwesomeIcon className="text-xs" icon={faSort} />
           </li>
