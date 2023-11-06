@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
 import Card from "../components/card";
 import DigitalClock from "../components/cards/clock";
+import CompletionChart from "../components/cards/completionChart";
+import Quote from "../components/cards/quote";
+import UpcomingTask from "../components/cards/upcomingTask";
 import Modal from "../components/modal";
 import Navigation from "../components/navigation";
 import Sidebar from "../components/sidebar";
+import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +29,17 @@ const Dashboard = () => {
         <Navigation></Navigation>
         <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll 2xl:overflow-hidden">
           <Card title={"Today"} content={<DigitalClock />}></Card>
+          <Card
+            title={"Current task"}
+            content={<UpcomingTask index={0} />}
+          ></Card>
+          <Card title={"Completion Ratio"} content={<CompletionChart />}></Card>
+          <Card title={"Motivational Quote"} content={<Quote />}></Card>
           <Card title={"Pomodoro"} content={undefined}></Card>
+          <Card
+            title={"Upcoming Task"}
+            content={<UpcomingTask index={1} />}
+          ></Card>
           <Card title={""} content={undefined}></Card>
           <Card title={""} content={undefined}></Card>
         </div>
