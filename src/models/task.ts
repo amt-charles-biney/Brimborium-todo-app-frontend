@@ -13,9 +13,22 @@ export interface Task extends TaskData {
   userId: string;
 }
 
+export interface TaskUpdateData {
+  topic?: string;
+  description?: string;
+  dueDate?: string | Moment;
+}
+
 export interface TaskState {
   loading: boolean;
   error?: string;
   tasks: Task[];
   count: number;
 }
+
+export const taskStatusString = {
+  pending: "TO_DO",
+  inProgress: "IN_PROGRESS",
+  completed: "COMPLETED",
+  overdue: "OVERDUE",
+};
