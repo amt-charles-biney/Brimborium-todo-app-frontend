@@ -10,11 +10,11 @@ const Navigation = () => {
   const path = location.pathname;
 
   return (
-    <nav className="w-full h-[100px] flex items-center justify-between px-12">
+    <nav className="w-full h-[6.25rem] flex items-center justify-between px-12">
       <div className="flex items-center">
         <h2 className="font-bold text-white text-3xl">{pageTitles[path]}</h2>
       </div>
-      <div className="flex items-center justify-between rounded-3xl border-2 border-gray-400 max-h-11 min-w-[25%] px-2">
+      <div className="flex items-center justify-between rounded-3xl glass max-h-11 w-[30%] min-w-[18.875rem] px-2">
         <input
           type="search"
           placeholder="👀&ensp;looking for a specific task?"
@@ -25,7 +25,7 @@ const Navigation = () => {
         </button>
       </div>
       <div className="flex items-center">
-        <div className="w-[45px] h-[45px] flex items-center justify-center rounded-full mr-3 glass">
+        <div className="w-[2.8125rem] h-[2.8125rem] flex items-center justify-center rounded-full mr-3 glass">
           <FontAwesomeIcon className="text-xl" icon={faUser} />
         </div>
         <p>{user?.name}</p>
