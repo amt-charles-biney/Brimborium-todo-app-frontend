@@ -1,15 +1,28 @@
-import moment from "moment";
-import { Task } from "../models/task";
-import TaskStatus from "./taskStatus";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
+import { useSearchParams } from "react-router-dom";
+import { Task } from "../models/task";
+import TaskStatus from "./taskStatus";
 
 export type TaskItemProps = {
+  index: number;
   task: Task;
 };
-const TaskItem = ({ task }: TaskItemProps) => {
+const TaskItem = ({ task, index }: TaskItemProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const handleSetParams = () => {
+    setSearchParams({ taskId: task.id });
+  };
   return (
-    <li className="flex gap-10 w-full transition-all text-center items-center hover:bg-sky-700 px-5 py-3 rounded cursor-pointer">
+    <li
+      onClick={handleSetParams}
+      className={`flex gap-10 w-full transition-all text-center items-center ${
+        searchParams.get("taskId") == task.id ? "!bg-gray-800" : ""
+      } ${
+        index % 2 === 0 ? "glass" : ""
+      }  hover:bg-gray-700 px-5 py-3 rounded cursor-pointer`}
+    >
       <div className="w-[35%] flex gap-3">
         <input type="checkbox" />
         <h3 className="capitalize text-left">{task.topic}</h3>
