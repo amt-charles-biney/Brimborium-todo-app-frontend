@@ -8,12 +8,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import moment from "moment";
 import { useState } from "react";
+import pageImage from "../assets/add-task.svg";
 import { TaskData } from "../models/task";
 import { ModalComponentProps } from "../models/ui";
 import { useAppDispatch } from "../redux/hooks";
 import { addTask } from "../redux/taskSlice";
-import pageImage from "../assets/add-task.svg";
-import toastIt from "../utilities/toast";
 
 const darkTheme = createTheme({
   palette: {
@@ -45,7 +44,6 @@ const AddTask = ({ closeModal }: ModalComponentProps) => {
 
     await dispatch(addTask(taskData));
     closeModal(false);
-    toastIt("Task added successfully.", "✔");
   }
 
   return (
