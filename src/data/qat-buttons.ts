@@ -1,16 +1,16 @@
 import {
+  faBolt,
   faCalculator,
-  faCalendarPlus,
-  faInbox,
+  faCalendarPlus
 } from "@fortawesome/free-solid-svg-icons";
-import type { QatButtonProps } from "../models/ui";
 import AddTask from "../components/addTask";
+import type { QatButtonProps } from "../models/ui";
 
 export const qatButtons: QatButtonProps[] = [
   {
-    title: "Inbox",
+    title: "Amali AI",
     color: "orange",
-    icon: faInbox,
+    icon: faBolt,
   },
   {
     title: "Calculator",
