@@ -1,10 +1,10 @@
 import toast from "react-hot-toast";
-import { style } from "../styles";
+import { toastStyle } from "../styles";
 
 const toastIt = (message: string, icon?: string) =>
   toast(message, {
     icon: icon && icon,
-    style,
+    style: toastStyle,
   });
 
 export default toastIt;

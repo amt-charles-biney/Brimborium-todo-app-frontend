@@ -6,50 +6,50 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import { useEffect, useState } from "react";
-import api from "../../config/axios";
-import { Task } from "../../models/task";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { selectUpcomingTasks } from "../../redux/taskSelectors";
+import { updateTaskStatus } from "../../redux/taskSlice";
+import { taskStatusString } from "../../models/task";
+import toastIt from "../../utilities/toast";
+import { truncateText } from "../../utilities/misc";
 
 export type TaskProps = {
   index: number;
 };
 
 const UpcomingTask = ({ index }: TaskProps) => {
-  const user = useAppSelector((state) => state.user);
-  const [upcomingTask, setUpcomingTask] = useState<Task | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | null>(null);
+  const tasks = useAppSelector(selectUpcomingTasks);
+  const dispatch = useAppDispatch();
+  const loading = false;
 
-  useEffect(() => {
-    async function fetchNextTask() {
-      try {
-        const response = await api.get(
-          `/todo?orderBy=dueDate:asc&where=userId:${user?.id}`
-        );
-        if (response.data.length > 0) {
-          setUpcomingTask(response.data[index]);
-        } else {
-          setUpcomingTask(null);
-        }
-        setLoading(false);
-      } catch (err) {
-        setError(err as Error);
-        setLoading(false);
-      }
-    }
+  const currentTask = tasks[index];
+  const isInProgress =
+    index === 0 &&
+    !!currentTask &&
+    currentTask.status !== taskStatusString.inProgress;
 
-    fetchNextTask();
-  }, [index, user]);
+  if (isInProgress) {
+    dispatch(
+      updateTaskStatus({
+        id: currentTask.id,
+        status: taskStatusString.inProgress,
+      })
+    );
+  }
+
+  async function updateStatus() {
+    await dispatch(
+      updateTaskStatus({ id: currentTask.id, status: "COMPLETED" })
+    );
+    toastIt("Congratulations.", "🎉");
+  }
 
   return (
     <div className="h-full w-full flex flex-col justify-between items-center">
-      <div className="flex-col mt-12">
+      <div className="flex-col mt-7">
         {loading ? (
-          <p className="text-center">Loading...</p>
-        ) : error ? (
-          <p className="text-center">Error: {error.message}</p>
-        ) : upcomingTask ? (
+          <p className="text-center mt-12">Loading...</p>
+        ) : currentTask ? (
           <div>
             <h2 className="text-center font-bold text-lg pb-4">
               {index === 1 ? (
@@ -61,29 +61,38 @@ const UpcomingTask = ({ index }: TaskProps) => {
                 />
               )}{" "}
               &ensp;
-              {upcomingTask.topic}
+              {currentTask.topic}
             </h2>
+            <p className="text-center text-sm">
+              {truncateText(currentTask.description, 100)}
+            </p>
           </div>
+        ) : index === 0 ? (
+          <p className="text-center mt-16">No current task found.</p>
         ) : (
-          <p className="text-center">No upcoming task found.</p>
+          <p className="text-center mt-16">No upcoming task found.</p>
         )}
-
-        <p className="text-center text-sm">{upcomingTask?.description}</p>
       </div>
 
-      {index === 1 ? (
-        upcomingTask && (
-          <p className="font-mono">
-            <FontAwesomeIcon icon={faCalendarCheck} />
-            &ensp; {moment(upcomingTask?.dueDate).fromNow()}
-          </p>
-        )
-      ) : (
-        <button className="px-4 py-1 border-2 border-green-400 rounded-full">
-          <FontAwesomeIcon className="text-green-400" icon={faCircleCheck} />{" "}
-          &ensp;Done
-        </button>
-      )}
+      {index === 1
+        ? currentTask && (
+            <p className="font-mono">
+              <FontAwesomeIcon icon={faCalendarCheck} />
+              &ensp; {moment(currentTask.dueDate).fromNow()}
+            </p>
+          )
+        : currentTask && (
+            <button
+              onClick={updateStatus}
+              className="px-4 py-1 border-2 border-green-400 rounded-full"
+            >
+              <FontAwesomeIcon
+                className="text-green-400"
+                icon={faCircleCheck}
+              />{" "}
+              &ensp;Done
+            </button>
+          )}
     </div>
   );
 };

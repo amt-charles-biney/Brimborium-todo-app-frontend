@@ -1,50 +1,73 @@
-import { useState } from "react";
-import Card from "../components/card";
-import DigitalClock from "../components/cards/clock";
-import CompletionChart from "../components/cards/completionChart";
-import Quote from "../components/cards/quote";
-import UpcomingTask from "../components/cards/upcomingTask";
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router";
 import Modal from "../components/modal";
 import Navigation from "../components/navigation";
+import Qat from "../components/qat";
 import Sidebar from "../components/sidebar";
-import { Toaster } from "react-hot-toast";
+import { LoginResponse } from "../models/authentication";
+import { ModalComponentProps, ModalState } from "../models/ui";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { fetchUserTasks } from "../redux/taskSlice";
+import DetailPanel from "../components/detailPanel";
+import { useSearchParams } from "react-router-dom";
 
 const Dashboard = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id } = useAppSelector((state) => state.auth.user as LoginResponse);
+  const [searchParams] = useSearchParams();
+  const taskId = searchParams.get("taskId");
+  const dispatch = useAppDispatch();
+  const InitialModalInstance: ModalState = {
+    isModalOpen: false,
+  };
+
+  const [modalInstance, setModalInstance] = useState(InitialModalInstance);
   document.title = "Dashboard | Brimborium";
 
   function closeModal(state: boolean): void {
-    setIsModalOpen(state);
+    setModalInstance((prevState) => {
+      return {
+        ...prevState,
+        isModalOpen: state,
+      };
+    });
   }
 
-  function openModal(state: boolean): void {
-    setIsModalOpen(state);
+  function openModal(
+    state: boolean,
+    component: (props: ModalComponentProps) => JSX.Element
+  ): void {
+    setModalInstance(() => {
+      return {
+        component,
+        isModalOpen: state,
+      };
+    });
   }
+
+  useEffect(() => {
+    dispatch(fetchUserTasks(id && id));
+  }, [dispatch, id]);
 
   return (
-    <div className="h-[100vh] w-[100vw] overflow-hidden flex dark-gradient text-white">
-      {isModalOpen && <Modal closeModal={closeModal} />}
-      <Sidebar openModal={openModal}></Sidebar>
-      <div className="w-full h-full grid bg-[rgba(5,4,9,0.7)]">
-        <Navigation></Navigation>
-        <div className="w-full h-full flex gap-20 flex-wrap p-24 overflow-y-scroll 2xl:overflow-hidden">
-          <Card title={"Today"} content={<DigitalClock />}></Card>
-          <Card
-            title={"Current task"}
-            content={<UpcomingTask index={0} />}
-          ></Card>
-          <Card title={"Completion Ratio"} content={<CompletionChart />}></Card>
-          <Card title={"Motivational Quote"} content={<Quote />}></Card>
-          <Card title={"Pomodoro"} content={undefined}></Card>
-          <Card
-            title={"Upcoming Task"}
-            content={<UpcomingTask index={1} />}
-          ></Card>
-          <Card title={""} content={undefined}></Card>
-          <Card title={""} content={undefined}></Card>
+    <div
+      className={`h-[100vh] w-[100vw] overflow-hidden grid ${
+        taskId ? "grid-cols-[6rem_1fr]" : "grid-cols-[16rem_1fr]"
+      } dark-gradient text-white transition-all`}
+    >
+      {modalInstance.isModalOpen && (
+        <Modal closeModal={closeModal} component={modalInstance.component!} />
+      )}
+      <Sidebar openModal={openModal} isMini={!!taskId}></Sidebar>
+      <main className="flex">
+        <div className="w-full h-full grid grid-rows-[6.25rem_1fr] bg-[rgba(5,4,9,0.7)]">
+          <Navigation></Navigation>
+          <div className="w-full h-full max-h-[calc(100vh-6.25rem)] flex gap-20 flex-wrap px-12 py-20 overflow-y-scroll">
+            <Outlet></Outlet>
+          </div>
         </div>
-      </div>
-      <Toaster position="bottom-right" reverseOrder={true} />
+        {taskId && <DetailPanel />}
+      </main>
+      <Qat openModal={openModal}></Qat>
     </div>
   );
 };

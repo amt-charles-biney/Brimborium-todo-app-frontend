@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import quoteImage from "../../assets/breaking obstacles.svg";
 const Quote = () => {
   const [quote, setQuote] = useState();
   const api_url = "https://type.fit/api/quotes";
@@ -18,8 +18,9 @@ const Quote = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-full w-full">
-      <p className="text-center">{quote}</p>
+    <div className="flex flex-col justify-center items-center h-full w-full">
+      <img src={quoteImage} alt="" width={120}/>
+      <p className="text-center mt-2">{quote}</p>
     </div>
   );
 };
