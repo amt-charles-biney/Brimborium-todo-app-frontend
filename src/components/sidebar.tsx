@@ -92,7 +92,7 @@ const Sidebar = ({ openModal, isMini }: OpenModal) => {
                   name={data.name}
                   openModal={openModal}
                   component={data.component}
-                  isMini={!isMini}
+                  isMini={isMini as boolean}
                 />
               </li>
             ) : (
@@ -108,7 +108,7 @@ const Sidebar = ({ openModal, isMini }: OpenModal) => {
                   link={data.link}
                   icon={data.icon}
                   name={data.name}
-                  isMini={!isMini}
+                  isMini={isMini as boolean}
                 />
               </li>
             );
@@ -136,7 +136,7 @@ const Sidebar = ({ openModal, isMini }: OpenModal) => {
                     icon={data.icon}
                     name={data.name}
                     openModal={openModal}
-                    isMini={!isMini}
+                    isMini={isMini as boolean}
                   />
                 </li>
               ) : (
@@ -152,7 +152,7 @@ const Sidebar = ({ openModal, isMini }: OpenModal) => {
                     link={data.link}
                     icon={data.icon}
                     name={data.name}
-                    isMini={!isMini}
+                    isMini={isMini as boolean}
                   />
                 </li>
               );

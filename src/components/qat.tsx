@@ -6,7 +6,7 @@ import { qatButtons } from "../data/qat-buttons";
 import type { QatButtonProps, OpenModal } from "../models/ui";
 import { QatButton } from "./qat-button";
 
-const Qat = ({ openModal }: OpenModal) => {
+const Qat = ({ openModal }: Partial<OpenModal>) => {
   const [isQatOpen, setIsQatOpen] = useState<boolean>(false);
 
   const toggleQat = () => {

@@ -46,7 +46,7 @@ export type QatButtonProps = {
  * Represents options for opening a modal.
  */
 export type OpenModal = {
-  isMini?: boolean;
+  isMini: boolean;
   openModal?: OpenModalFunction;
 };
 
